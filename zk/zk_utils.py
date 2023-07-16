@@ -100,6 +100,9 @@ class ZKInferenceUtils:
         self.params_path = os.path.join(self.base_path, "kzg.params")
         self.settings_path = os.path.join(self.base_path, "settings.json")
 
+        self.witness_path = os.path.join(self.base_path, "witness.json")
+        self.srs_path = os.path.join(self.base_path, "17.srs")
+
     def generate_proof(self, inputs):
         input_path = os.path.join(self.temp_base_path, "input.json")
         json.dump(inputs, open(input_path, "w"))
@@ -109,17 +112,20 @@ class ZKInferenceUtils:
             'test.pf'
         )
 
+        print("Proving..")
+
         res = ezkl.prove(
-            input_path,
+            self.witness_path,
             self.onnx_path,
             self.pk_path,
             proof_path,
-            self.params_path,
-            "poseidon",
+            self.srs_path,
+            "evm",
             "single",
-            self.settings_path
-            # test_reads=False
+            self.settings_path,
         )
 
-        assert res == True
+        assert res
         assert os.path.isfile(proof_path)
+
+        print("Generated proof..")

@@ -4,3 +4,4 @@ scipy
 ftfy
 onnx
 ezkl_lib==0.3.0
+ezkl==1.2.0

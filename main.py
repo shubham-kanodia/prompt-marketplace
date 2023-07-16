@@ -37,16 +37,12 @@ import torch
 # conv_layer_bias_data = self.conv_out.bias.data
 
 import json
-from zk.zk_utils import ZKInferenceUtils
+from zk.zk_utils import ZKInferenceUtils, ZKSetupUtils
 
 zk_inference_utils = ZKInferenceUtils()
+zk_setup_utils = ZKSetupUtils()
+
+zk_setup_utils.execute()
 
 inputs = json.load(open("zk/data/input.json", "r"))
 zk_inference_utils.generate_proof(inputs)
-# auto_encoder_helper.export_minified_model(semi_inp, imgs, "data/model.onnx")
-
-
-# from helpers.export_helper import generate_proof
-#
-#
-# generate_proof("data/model.onnx", "data/pk.key", "data/20.srs", "data/settings.json")
