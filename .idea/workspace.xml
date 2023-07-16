@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="175e46a4-bd09-4a9a-8413-31c9200b4665" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/prove.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/prove.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/zk_setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/zk_setup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zk/zk_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/zk/zk_utils.py" afterDir="false" />
-    </list>
+    <list default="true" id="175e46a4-bd09-4a9a-8413-31c9200b4665" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
