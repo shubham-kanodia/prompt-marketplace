@@ -7,7 +7,7 @@ from decoder.MinifiedModel import MinifiedModel
 from zk.export_helper import export
 
 
-class ZKUtils:
+class ZKSetupUtils:
     def __init__(self):
         self.base_path = os.path.join(os.path.dirname(__file__), "data")
         self.onnx_path = os.path.join(self.base_path, "network.onnx")
@@ -88,3 +88,38 @@ class ZKUtils:
 
         print("Doing circuit setup...")
         self.setup_circuit()
+
+
+class ZKInferenceUtils:
+    def __init__(self):
+        self.temp_base_path = "/tmp"
+        self.base_path = os.path.join(os.path.dirname(__file__), "data")
+
+        self.onnx_path = os.path.join(self.base_path, "network.onnx")
+        self.pk_path = os.path.join(self.base_path, "pk.key")
+        self.params_path = os.path.join(self.base_path, "kzg.params")
+        self.settings_path = os.path.join(self.base_path, "settings.json")
+
+    def generate_proof(self, inputs):
+        input_path = os.path.join(self.temp_base_path, "input.json")
+        json.dump(inputs, open(input_path, "w"))
+
+        proof_path = os.path.join(
+            self.temp_base_path,
+            'test.pf'
+        )
+
+        res = ezkl.prove(
+            input_path,
+            self.onnx_path,
+            self.pk_path,
+            proof_path,
+            self.params_path,
+            "poseidon",
+            "single",
+            self.settings_path
+            # test_reads=False
+        )
+
+        assert res == True
+        assert os.path.isfile(proof_path)
