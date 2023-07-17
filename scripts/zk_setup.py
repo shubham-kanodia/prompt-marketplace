@@ -17,4 +17,4 @@ zk_utils = ZKSetupUtils()
 
 inputs = json.load(open("../zk/data/input.json", "r"))
 
-zk_inference_utils.generate_proof(inputs)
+zk_inference_utils.get_proof_and_inputs()

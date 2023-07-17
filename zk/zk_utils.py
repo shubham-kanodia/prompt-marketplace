@@ -6,6 +6,9 @@ import torch
 from decoder.MinifiedModel import MinifiedModel
 from zk.export_helper import export
 
+import subprocess
+import re
+
 
 class ZKSetupUtils:
     def __init__(self):
@@ -44,6 +47,14 @@ class ZKSetupUtils:
         with open(self.settings_path, "w") as f:
             json.dump(settings, f)
 
+    def _generate_settings(self):
+        run_args = ezkl.PyRunArgs()
+        run_args.input_visibility = "private"
+        run_args.param_visibility = "public"
+        run_args.output_visibility = "hashed"
+
+        ezkl.gen_settings(self.onnx_path, self.settings_path, py_run_args=run_args)
+
     def export_model(self, decoder, input_shape):
         # Input shape: [128, 3, 3]
         minified_model = self._prepare_model(decoder)
@@ -51,7 +62,8 @@ class ZKSetupUtils:
         export(minified_model, input_shape=input_shape, onnx_filename=self.onnx_path, input_filename=self.data_path,
                settings_filename=self.settings_path)
 
-        self._patch_model_settings()
+        self._generate_settings()
+        # self._patch_model_settings()
 
     def generate_srs(self):
         ezkl.gen_srs(self.srs_path, 17)
@@ -97,18 +109,21 @@ class ZKInferenceUtils:
 
         self.onnx_path = os.path.join(self.base_path, "network.onnx")
         self.pk_path = os.path.join(self.base_path, "pk.key")
+        self.vk_path = os.path.join(self.base_path, "vk.key")
         self.params_path = os.path.join(self.base_path, "kzg.params")
         self.settings_path = os.path.join(self.base_path, "settings.json")
 
         self.witness_path = os.path.join(self.base_path, "witness.json")
         self.srs_path = os.path.join(self.base_path, "17.srs")
+        self.contract_path = os.path.join(self.base_path, "Verifier.sol")
+        self.abi_path = os.path.join(self.base_path, "Verifier.abi")
 
     def generate_proof(self, inputs):
         input_path = os.path.join(self.temp_base_path, "input.json")
         json.dump(inputs, open(input_path, "w"))
 
         proof_path = os.path.join(
-            self.temp_base_path,
+            self.base_path,
             'test.pf'
         )
 
@@ -129,3 +144,37 @@ class ZKInferenceUtils:
         assert os.path.isfile(proof_path)
 
         print("Generated proof..")
+
+    def get_proof_and_inputs(self):
+        proof_path = os.path.join(
+            self.base_path,
+            'test.pf'
+        )
+
+        proof = ezkl.print_proof_hex(proof_path=proof_path)
+
+        cmd = f"/tmp/ezkl/target/release/ezkl print-proof-hex --proof-path={proof_path}"
+        op = subprocess.run(cmd, shell=True, capture_output=True)
+        refined_output = op.stdout.strip()
+
+        pb_inputs = None
+        for line in refined_output.split():
+            pattern = r'\[0x[0-9a-fA-F]+\]'
+            addresses = re.findall(pattern, line.decode('utf-8'))
+            if len(addresses):
+                pb_inputs = addresses[0].strip("[]")
+                break
+
+        return pb_inputs, proof
+    # def export_contract(self):
+    #     # ezkl create-evm-verifier --srs-path=17.srs --settings-path=settings.json --vk-path=vk.key
+    #     try:
+    #         ezkl.create_evm_verifier(
+    #             self.vk_path,
+    #             self.srs_path,
+    #             self.settings_path,
+    #             self.contract_path,
+    #             self.abi_path
+    #         )
+    #     except:
+    #         pass
