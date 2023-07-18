@@ -1,5 +1,9 @@
 # Prompt Marketplace
 
+# Architecture
+
+![Flow](res/flow-white.png)
+
 # Setup
 
 * Create a python virtual env
