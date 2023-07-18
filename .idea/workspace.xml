@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="175e46a4-bd09-4a9a-8413-31c9200b4665" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/zk/data/.gitkeep" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/zk_setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/zk_setup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zk/zk_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/zk/zk_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helpers/cache.py" beforeDir="false" afterPath="$PROJECT_DIR$/helpers/cache.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helpers/pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/helpers/pipeline.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +47,7 @@
   "keyToString": {
     "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/Users/shubham/Desktop/dev/o-dev/hackathon/sd-ml/data",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
@@ -65,11 +61,11 @@
       <recent name="$PROJECT_DIR$/zk/foundry-contracts/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/data/cache" />
       <recent name="$PROJECT_DIR$/commands" />
       <recent name="$PROJECT_DIR$/zk/data/aggregation-data" />
       <recent name="$PROJECT_DIR$/zk/data" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/zk/data-new/proofs" />
     </key>
   </component>
   <component name="RunManager" selected="Python.zk_setup">

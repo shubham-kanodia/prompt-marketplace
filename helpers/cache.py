@@ -3,7 +3,7 @@ import pickle
 
 
 class CacheHelper:
-    def __init__(self, cache_name="new-cache"):
+    def __init__(self, cache_name="cache"):
         self.cache_name = cache_name
         if os.path.exists(f"data/{cache_name}"):
             pass
