@@ -10,4 +10,4 @@ class AutoEncoderHelper:
 
     def decode(self, latents):
         dec, semi_inp = self.vae.decode(latents)
-        return dec
+        return dec, semi_inp

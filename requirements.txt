@@ -2,3 +2,9 @@ diffusers==0.2.4
 transformers
 scipy
 ftfy
+onnx
+ezkl_lib==0.3.0
+ezkl==1.2.0
+fastapi
+uvicorn
+pydantic

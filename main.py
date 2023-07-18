@@ -1,36 +1,54 @@
-from helpers.text_embeddings import TextEmbeddingsHelper
-from helpers.latents import LatentsHelper
-from helpers.cache import CacheHelper
-from helpers.auto_encoder import AutoEncoderHelper
+from fastapi import FastAPI
+from fastapi.exceptions import HTTPException
+from fastapi import status, Depends, Request
+from fastapi.middleware.cors import CORSMiddleware
 
-import torch
+from pydantic import BaseModel
+import pickle
+import base64
+import requests
+import json
 
-device = "cpu"
+INFERENCE_API = "http://localhost:8000"
 
-# text_embeddings_helper = TextEmbeddingsHelper(device)
-# latents_helper = LatentsHelper(device)
-cache_helper = CacheHelper()
-auto_encoder_helper = AutoEncoderHelper(device)
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/")
+async def root():
+    return {"message": f"Hello from team Invictus!"}
 
 
-prompts = ['Super cool anime character']
+def tensor_to_base64(arr):
+    bt = str(arr.tolist()).encode("utf-8")
+    encoded_bytes = base64.b64encode(bt)
+    encoded_string = encoded_bytes.decode('utf-8')
+
+    return encoded_string
 
 
-# text_embeds = text_embeddings_helper.embed(prompts)
-# text_embeddings = cache_helper.get_object("embeds")
-latents = cache_helper.get_object("latents_new")
+class PromptModel(BaseModel):
+    prompt: str
 
-latents = 1 / 0.18215 * latents
 
-with torch.no_grad():
-    imgs = auto_encoder_helper.decode(latents)
+@app.post("/prove")
+async def prove(prompt: PromptModel):
+    inference_api_endpoint = f"{INFERENCE_API}/inference"
 
-print(imgs)
+    headers = {'Content-Type': 'application/json'}
 
-decoder_model_layers = list(self.state_dict().keys())
-conv2d_weights_layer_name = 'conv_out.weight'
-conv2d_bias_layer_name = 'conv_out.bias'
+    resp = requests.post(
+        inference_api_endpoint,
+        headers=headers,
+        data=json.dumps({"prompt": prompt.prompt})
+    )
 
-conv_layer_weights_data = self.conv_out.weight.data
-conv_layer_bias_data = self.conv_out.bias.data
+    op = resp.json()
 
