@@ -166,6 +166,7 @@ class ZKInferenceUtils:
                 break
 
         return pb_inputs, proof
+
     # def export_contract(self):
     #     # ezkl create-evm-verifier --srs-path=17.srs --settings-path=settings.json --vk-path=vk.key
     #     try:

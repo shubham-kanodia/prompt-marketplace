@@ -13,8 +13,15 @@ auto_encoder_helper = AutoEncoderHelper(device)
 decoder = auto_encoder_helper.vae.decoder
 
 zk_utils = ZKSetupUtils()
+
+# Setup pk, vk keys, srs and circuit
 # zk_utils.execute(decoder)
 
 inputs = json.load(open("../zk/data/input.json", "r"))
 
-zk_inference_utils.get_proof_and_inputs()
+# Uncomment to generate proof
+# zk_inference_utils.generate_proof(inputs)
+
+print(
+    zk_inference_utils.get_proof_and_inputs()
+)
